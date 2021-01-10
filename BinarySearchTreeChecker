@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // parse the array representing the binary search tree
+        int[] binaryTree;
+        String input = sc.nextLine();
+        if (input.equals("")) {
+            binaryTree = new int[0];
+        } else {
+            String[] binaryTreeStrings = input.split(" ");
+            binaryTree = new int[binaryTreeStrings.length];
+            for (int i = 0; i < binaryTreeStrings.length; i++) {
+                binaryTree[i] = Integer.parseInt(binaryTreeStrings[i]);
+            }
+        }
+
+        // check if this is a binary search tree; print the result
+        System.out.println(isBinarySearchTree(binaryTree));
+    }
+   
+    public static boolean isBinarySearchTreeDFShelper(int [] binaryTree, int currentValue, int upperConstraint,int lowerConstraint){
+        if(binaryTree[currentValue]<lowerConstraint||binaryTree[currentValue]>upperConstraint){
+            return false;
+        }
+        int rightDescendant = currentValue*2+2;
+        int leftDescendant = currentValue*2 +1;
+
+        if(leftDescendant>binaryTree.length-1){
+            return true;
+        }
+        if(rightDescendant>binaryTree.length-1){
+            return isBinarySearchTreeDFShelper(binaryTree,leftDescendant,binaryTree[currentValue],lowerConstraint);
+        }
+        return isBinarySearchTreeDFShelper(binaryTree,leftDescendant,binaryTree[currentValue],lowerConstraint)
+                &&isBinarySearchTreeDFShelper(binaryTree,rightDescendant,upperConstraint,binaryTree[currentValue]);
+    }
+
+    public static boolean isBinarySearchTree(int[] binaryTree) {
+            return isBinarySearchTreeDFShelper(binaryTree,0,Integer.MAX_VALUE,Integer.MIN_VALUE);
+    }
+
+}

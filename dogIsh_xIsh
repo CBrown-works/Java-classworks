@@ -1,0 +1,33 @@
+class Main {
+    public static void main(String[] args) {
+    }
+
+    // returns true if the word is in dog-ish
+    // returns false if word is not in dog-ish
+    public static boolean inDogish(String word){
+      return dogishHelper(word,'d');
+
+
+    }
+    // necessary to implement inDogish recursively
+    public static boolean dogishHelper(String word, char letter) {
+        if (word.indexOf(letter) >= 0 && letter == 'g') {
+            return true;
+        } else if (word.indexOf(letter) >= 0 && letter == 'o') {
+            return dogishHelper(word.substring(word.indexOf(letter), word.length() ), 'g');
+        } else if (word.indexOf(letter) >= 0 && letter == 'd') {
+            return dogishHelper(word.substring(word.indexOf(letter), word.length() ), 'o');
+        }
+        return false;
+    }
+    // a generalized version of the inDogish method
+    public static boolean inXish(String word, String x){
+        System.out.println(x.charAt(0));
+        if (word.indexOf(x.charAt(0))>=0 && x.length()==1) {
+            return true;
+        } else if (word.indexOf(x.charAt(0))>=0 ) {
+            return inXish(word.substring(word.indexOf(x.charAt(0)), word.length() ), x.substring(1,x.length()));
+        }
+        return false;
+    }
+}

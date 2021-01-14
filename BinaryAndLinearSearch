@@ -29,6 +29,6 @@ class BinarySearch {
             }
             System.out.println(mid);
         }
-        return -1;
+        return -1; 
   }
 }

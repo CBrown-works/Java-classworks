@@ -1,0 +1,74 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // read input
+
+        String expression = sc.nextLine();
+
+        // print the evaluated result
+         eval(expression);
+        System.out.println(eval(expression));
+    }
+    public static int mathOperations(Stack<Integer> numberStack,Stack<Character>operationStack){
+        int value1 = numberStack.pop();
+        int value2 = numberStack.pop();
+        char operation = operationStack.pop();
+        switch (operation){
+            case '+': return value1+value2;
+            case '*': return value1*value2;
+        }
+        return 0;
+    }
+    public static int eval(String expression) {
+        char[] expressionArray = expression.toCharArray();
+        String input = expression;
+        Stack<Integer> numberStack = new Stack<>();
+        Stack<Character> operationStack = new Stack<>();
+        int output;
+        for (int i = 0; i < expressionArray.length; i++) {
+            if (expressionArray[i] >= '0' && expressionArray[i] <= '9') {
+                char input1 = expressionArray[i];
+                int num =0;
+                while (Character.isDigit(input1)) {
+                    num = num*10+(input1-'0');
+                    i++;
+                    if(i< expressionArray.length){
+                        input1 = expressionArray[i];
+                    } else break;
+                }
+                i--;
+                numberStack.push(num);
+            }
+            else if (expressionArray[i] == ('(')) {
+                operationStack.push(expressionArray[i]);
+            } else if (expressionArray[i] == (')')) {
+                while (operationStack.peek() != '(') {
+                    output = mathOperations(numberStack, operationStack);
+                    numberStack.push(output);
+                }
+                operationStack.pop();
+            } else if (expressionArray[i] == ('+') || expressionArray[i] == ('*')) {
+                while (!operationStack.isEmpty() && orderOfOperations(expressionArray[i]) < orderOfOperations(operationStack.peek())) {
+                    output = mathOperations(numberStack, operationStack);
+                    numberStack.push(output);
+                }
+                operationStack.push(expressionArray[i]);
+            }
+        }
+        while (!operationStack.isEmpty()) {
+            output = mathOperations(numberStack, operationStack);
+            numberStack.push(output);
+        }
+        return numberStack.pop();
+    }
+    public static int orderOfOperations(char operationStack) {
+        switch (operationStack){
+            case '+': return 1;
+            case '*': return 2;
+        }
+        return -1;
+    }
+    
+}

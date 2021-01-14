@@ -1,0 +1,19 @@
+class Main {
+    public static void main(String[] args) {
+    }
+    public static boolean isBalanced(String parantheses){
+        int count=0;
+        for(int i=0;i<parantheses.length();i++){
+            if(parantheses.charAt(i)=='('){
+                count++;
+            }if(parantheses.charAt(i)==')'){
+                if(count == 0){
+                    return false;
+                }else {
+                    count--;
+                }
+            }
+        }
+        return count ==0;
+    }
+}

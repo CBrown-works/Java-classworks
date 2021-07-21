@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class isPalindrome {
+    public static void main(String[]args){
+        Scanner scan = new Scanner(System.in);
+        String inStr = scan.next().toLowerCase();
+
+        int inStrLen = inStr.length();
+        String revString = "";
+
+        for (int i = inStrLen -1 ; i >= 0;i--) {
+            revString += inStr.charAt(i);
+
+        }
+
+        if (revString.equals(inStr)){
+            System.out.println("True");
+        }
+        else System.out.println("False");
+    }
+}

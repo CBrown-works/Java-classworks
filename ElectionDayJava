@@ -1,0 +1,88 @@
+// ***************************************************************
+//   Election_Day.java
+//
+//   This file contains a program that tallies the results of
+//   an election.  It reads in the number of votes for each of
+//   two candidates in each of several precincts.  It determines
+//   the total number of votes received by each candidate, the
+//   percent of votes received by each candidate, the number of
+//   precincts each candidate carries, and the
+//   maximum winning margin in a precinct.
+// **************************************************************
+
+import java.util.Scanner;
+
+public class ElectionDayT {
+    public static void main(String[] args) {
+        int votesForCandidate1;  // number of votes for Bernie in each precinct
+        int votesForCandidate2; // number of votes for Donald in each precinct
+        int totalCandidate1= 0;     // running total of votes for Bernie
+        int totalCandidate2=0;    // running total of votes for Donald
+        String response;    // answer (y or n) to the "more precincts" question
+        int cnt = 0;
+        int cntt =0;
+        int tie=0;
+        int maxB = totalCandidate1 - totalCandidate2;
+        int maxD = totalCandidate2 - totalCandidate1;
+        char y = 0;
+        char n =0 ;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Election Day voting program");
+        System.out.println("Are there precincts you would like to report? (Y or N)");
+        while (true) {
+            response = scan.nextLine().toUpperCase();
+              if (response.equals("Y")){
+                  System.out.println("Enter Votes For Candidate 1:");
+                  votesForCandidate1 = scan.nextInt();
+                  System.out.println("Enter Votes For Candidate 2:");
+                  votesForCandidate2 = scan.nextInt();
+                  if (votesForCandidate1> votesForCandidate2) {
+                      System.out.println("Candidate 1 won this precinct");
+                      cnt++;
+                      totalCandidate1 += votesForCandidate1;
+                      totalCandidate2 += votesForCandidate2;
+                      maxD += totalCandidate2 - totalCandidate1;
+                      maxB += totalCandidate1 - totalCandidate2;
+
+                  }else if (votesForCandidate2> votesForCandidate1) {
+                      System.out.println("Candidate 2 won this precinct");
+                      cntt++;
+                      totalCandidate2 += votesForCandidate2;
+                      totalCandidate1 += votesForCandidate1;
+                      maxD += totalCandidate2 - totalCandidate1;
+                      maxB += totalCandidate1 - totalCandidate2;
+                  } else if (votesForCandidate1 == votesForCandidate2) {
+                      System.out.println("There was tie between the candidates in this precinct");
+                      tie++;
+                      totalCandidate2 += votesForCandidate2;
+                      totalCandidate1 += votesForCandidate1;
+                      maxD += totalCandidate2 - totalCandidate1;
+                      maxB += totalCandidate1 - totalCandidate2;
+                  }
+                System.out.println("The total votes for Candidate 1 is " + totalCandidate1);
+                System.out.println("The Total votes for Candidate 2 is " + totalCandidate2);
+                  System.out.println("Are there more precincts? (Y or N)");
+              }if (response.equals("N")) {
+
+                    if ((totalCandidate2>totalCandidate1)) {
+                        maxD = totalCandidate2 - totalCandidate1;
+                        System.out.println("Candidate 2 won this election with a total of " + totalCandidate2 + " votes and " + cntt + " precinct(s) carried");
+                        System.out.println("They won by " + maxD + " vote(s)");
+                    }else if (totalCandidate1> totalCandidate2) {
+                        maxB = totalCandidate1 - totalCandidate2;
+                        System.out.println("Candidate 1 won this election with a total of " + totalCandidate1 + " votes and " + cnt + " precinct(s) carried");
+                        System.out.println("They won by " + maxB + " vote(s)");
+                    }else if (totalCandidate1 == totalCandidate2)
+                    System.out.println("The two candidates tied in this election");
+                System.out.println("The total votes for Candidate 2 is " + totalCandidate2);
+                System.out.println("He won " +cntt + " precinct(s)");
+                System.out.println("The Total votes for Candidate 1 is " + totalCandidate1);
+                System.out.println("He won " +cnt + " precinct(s)");
+
+                System.out.println("There were a total of " +tie + " tie(s)");
+
+                    System.exit(0);
+                }
+            }
+        }
+    }

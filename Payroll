@@ -1,0 +1,43 @@
+import java.util.Scanner;
+////////////////////////////////////////////////////////////////////////////////////////
+// Homework 5 PayRoll.java                                                           //
+// Name:Carlton Brown                                                               //
+// Lab time:Thursday 3:00pm                                                        //
+// Program description:A scanner is used to determine the net pay for an employee //
+///////////////////////////////////////////////////////////////////////////////////
+
+public class PayRoll{
+    public static void main(String[] args){
+        Scanner console = new Scanner(System.in);
+        System.out.println("Employee name");
+        String employee = console.nextLine();
+
+        System.out.println("Number Of Hours Worked");
+        double hours = console.nextDouble();
+
+        System.out.println("Hourly Rate");
+        double pay = console.nextDouble();
+
+        double gross_pay = pay*hours;
+
+        System.out.println("Federal tax Rate");
+        double ftr= console.nextDouble();
+        double ftrr= ftr*.1;
+        double Tax_deductions= ftrr;
+        double net_pay= gross_pay - Tax_deductions;
+        System.out.println("Employee Name:"+ employee);
+        System.out.println("Hours Worked:"+ hours);
+        System.out.println("Hourly Rate:"+ pay);
+        System.out.println("Gross pay:"+ gross_pay);
+
+        System.out.println("Tax Deductions:");
+        System.out.println("\t Federal tax(10.0%:" + ftrr);
+        System.out.println("\t Total Deductions:" + Tax_deductions);
+        System.out.println("Net Pay:" + net_pay);
+        console.close();
+
+
+
+
+    }
+}

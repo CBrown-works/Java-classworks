@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class SquareRoot {
+    public static void main(String [] args){
+        Scanner scan = new Scanner(System.in);
+        int a = 0;
+        System.out.println("input a number");
+        int b= scan.nextInt();
+        System.out.println("the square root is " +binarySearch(a,b));
+
+    }
+    public static int binarySearch(int a,int b){
+        int min=0;
+        int max = b;
+        int mid ;
+
+        while (min<max){
+            mid = (min+ max)/2;
+
+            if(mid*mid < b){
+                min = mid +1;
+
+            }if(mid*mid>b){
+                max=mid-1;
+
+            }if(mid*mid == b){
+
+                return mid;
+            }
+        }
+        return max;
+    }
+}
